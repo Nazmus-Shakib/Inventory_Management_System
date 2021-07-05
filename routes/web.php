@@ -19,9 +19,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // auth middleware to prevent user from accessing dashboard before login
-Route::group(['middleware'=>'auth'], function(){
+Route::group(['middleware' => 'auth'], function () {
     // route group for user management
-    Route::prefix('users')->group(function (){
+    Route::prefix('users')->group(function () {
         Route::get('/view', 'Backend\UserController@view')->name('users.view');
         Route::get('/add', 'Backend\UserController@add')->name('users.add');
         Route::post('/store', 'Backend\UserController@store')->name('users.store');
@@ -31,16 +31,16 @@ Route::group(['middleware'=>'auth'], function(){
     });
 
     // route group for profiles management
-    Route::prefix('profiles')->group(function (){
+    Route::prefix('profiles')->group(function () {
         Route::get('/view', 'Backend\ProfileController@view')->name('profiles.view');
         Route::get('/edit', 'Backend\ProfileController@edit')->name('profiles.edit');
-        Route::post('/update', 'Backend\ProfileController@update')->name('profiles.update');    
+        Route::post('/update', 'Backend\ProfileController@update')->name('profiles.update');
         Route::get('/password/view', 'Backend\ProfileController@passwordView')->name('profiles.password.view');
-        Route::post('/password/update', 'Backend\ProfileController@passwordUpdate')->name('profiles.password.update'); 
+        Route::post('/password/update', 'Backend\ProfileController@passwordUpdate')->name('profiles.password.update');
     });
 
     // route group for suppliers management
-    Route::prefix('suppliers')->group(function (){
+    Route::prefix('suppliers')->group(function () {
         Route::get('/view', 'Backend\SupplierController@view')->name('suppliers.view');
         Route::get('/add', 'Backend\SupplierController@add')->name('suppliers.add');
         Route::post('/store', 'Backend\SupplierController@store')->name('suppliers.store');
@@ -50,7 +50,7 @@ Route::group(['middleware'=>'auth'], function(){
     });
 
     // route group for customers management
-    Route::prefix('customers')->group(function (){
+    Route::prefix('customers')->group(function () {
         Route::get('/view', 'Backend\CustomerController@view')->name('customers.view');
         Route::get('/add', 'Backend\CustomerController@add')->name('customers.add');
         Route::post('/store', 'Backend\CustomerController@store')->name('customers.store');
@@ -60,7 +60,7 @@ Route::group(['middleware'=>'auth'], function(){
     });
 
     // route group for units management
-    Route::prefix('units')->group(function (){
+    Route::prefix('units')->group(function () {
         Route::get('/view', 'Backend\UnitController@view')->name('units.view');
         Route::get('/add', 'Backend\UnitController@add')->name('units.add');
         Route::post('/store', 'Backend\UnitController@store')->name('units.store');
@@ -70,7 +70,7 @@ Route::group(['middleware'=>'auth'], function(){
     });
 
     // route group for categories management
-    Route::prefix('categories')->group(function (){
+    Route::prefix('categories')->group(function () {
         Route::get('/view', 'Backend\CategoryController@view')->name('categories.view');
         Route::get('/add', 'Backend\CategoryController@add')->name('categories.add');
         Route::post('/store', 'Backend\CategoryController@store')->name('categories.store');
@@ -80,7 +80,7 @@ Route::group(['middleware'=>'auth'], function(){
     });
 
     // route group for products management
-    Route::prefix('products')->group(function (){
+    Route::prefix('products')->group(function () {
         Route::get('/view', 'Backend\ProductController@view')->name('products.view');
         Route::get('/add', 'Backend\ProductController@add')->name('products.add');
         Route::post('/store', 'Backend\ProductController@store')->name('products.store');
@@ -89,4 +89,17 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/delete/{id}', 'Backend\ProductController@delete')->name('products.delete');
     });
 
+    // route group for purchases management
+    Route::prefix('purchases')->group(function () {
+        Route::get('/view', 'Backend\PurchaseController@view')->name('purchases.view');
+        Route::get('/add', 'Backend\PurchaseController@add')->name('purchases.add');
+        Route::post('/store', 'Backend\PurchaseController@store')->name('purchases.store');
+        Route::get('/pending', 'Backend\PurchaseController@pendingList')->name('purchases.pending.list');        
+        Route::get('/approve/{id}', 'Backend\PurchaseController@approve')->name('purchases.approve');
+        Route::get('/delete/{id}', 'Backend\PurchaseController@delete')->name('purchases.delete');
+    });
+
+    // default controller
+    Route::get('/get-category', 'Backend\DefaultController@getCategory')->name('get-category');
+    Route::get('/get-product', 'Backend\DefaultController@getProduct')->name('get-product');
 });

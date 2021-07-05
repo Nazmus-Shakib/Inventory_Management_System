@@ -43,7 +43,7 @@
 
   <!-- date picker -->
   <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" /> 
+  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -228,6 +228,8 @@
 <script src="{{ asset('public/backend/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('public/backend/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <!-- Page specific script -->
+<!-- handlebars -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 
 <!-- To create Table View -->
 <script>
@@ -251,7 +253,7 @@
 <script src="{{ asset('public/backend/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
 <script src="{{ asset('public/backend/plugins/jquery-validation/additional-methods.min.js')}}"></script>
 
-<!-- SweetAlert -->
+<!-- SweetAlert for Delete -->
 <script>
   $(function () {
     $(document).on('click','#delete', function(e) {
@@ -266,15 +268,43 @@
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.href = link;
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-      }
-})
+        if (result.isConfirmed) {
+          window.location.href = link;
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+        }
+      })
+    });
+  });
+</script>
+
+<!-- SweetAlert for Approve Purchase -->
+<script>
+  $(function () {
+    $(document).on('click','#approveBtn', function(e) {
+      e.preventDefault();
+      var link = $(this).attr('href');
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Approve this Data",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Approve it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = link;
+          Swal.fire(
+            'Approved!',
+            'Purchase has been approved.',
+            'success'
+          )
+        }
+      })
     });
   });
 </script>

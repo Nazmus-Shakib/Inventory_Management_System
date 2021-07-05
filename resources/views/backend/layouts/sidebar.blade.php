@@ -142,6 +142,31 @@
             </ul>
           </li>
 
+          <li class="nav-item {{( $prefix=='/purchases' ? 'menu-open' : '' )}}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Manage Purchase
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('purchases.view')}}" class="nav-link {{( $route=='purchases.view' ? 'active' : '' )}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>View Purchase</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('purchases.pending.list')}}" class="nav-link {{( $route=='purchases.pending.list' ? 'active' : '' )}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Approve Purchase</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
         </ul>
       </nav>
+
       <!-- /.sidebar-menu -->
