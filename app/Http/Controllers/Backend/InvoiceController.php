@@ -9,23 +9,35 @@ use App\Model\Supplier;
 use App\Model\Unit;
 use App\Model\Category;
 use App\Model\Purchase;
+use App\Model\Invoice;
+use App\Model\InvoiceDetail;
+use App\Model\Payment;
+use App\Model\PaymentDetail;
+use App\Model\Customer;
 use Auth;
 use DB;
 
-class PurchaseController extends Controller
+class InvoiceController extends Controller
 {
     public function view()
     {
-        $allData = Purchase::orderBy('date', 'desc')->orderBy('id', 'desc')->get();
-        return view('backend.purchase.view-purchase', compact('allData'));
+        $allData = Invoice::orderBy('date', 'desc')->orderBy('id', 'desc')->get();
+        return view('backend.invoice.view-invoice', compact('allData'));
     }
 
     public function add()
     {
-        $data['suppliers'] = Supplier::all();
         $data['categories']  = Category::all();
-        $data['units']  = Unit::all();
-        return view('backend.purchase.add-purchase', $data);
+        $data['customers']  = Customer::all();
+        $invoice_data = Invoice::orderBy('id', 'desc')->first();
+        if ($invoice_data == null) {
+            $firstReg = 0;
+            $data['invoice_no'] = $firstReg + 1;
+        } else {
+            $invoice_data = Invoice::orderBy('id', 'desc')->first()->invoice_no;
+            $data['invoice_no'] = $invoice_data + 1;
+        }
+        return view('backend.invoice.add-invoice', $data);
     }
 
     public function store(Request $request)

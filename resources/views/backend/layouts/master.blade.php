@@ -40,11 +40,14 @@
       z-index: 10000 !important;
     }
   </style>
-
   <!-- date picker -->
   <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
   <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{asset('public/backend/plugins/select2/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{asset('public/backend/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
@@ -230,6 +233,8 @@
 <!-- Page specific script -->
 <!-- handlebars -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+<!-- Select2 -->
+<script src=" {{ asset('public/backend/plugins/select2/js/select2.full.min.js')}}"></script>
 
 <!-- To create Table View -->
 <script>
@@ -320,6 +325,12 @@
       reader.readAsDataURL(event.target.files['0']);
     });
   });
+</script>
+{{-- select2 function --}}
+<script>
+    $(function(){
+        $('.select2').select2()
+    });
 </script>
 </body>
 </html>

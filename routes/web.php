@@ -94,7 +94,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/view', 'Backend\PurchaseController@view')->name('purchases.view');
         Route::get('/add', 'Backend\PurchaseController@add')->name('purchases.add');
         Route::post('/store', 'Backend\PurchaseController@store')->name('purchases.store');
-        Route::get('/pending', 'Backend\PurchaseController@pendingList')->name('purchases.pending.list');        
+        Route::get('/pending', 'Backend\PurchaseController@pendingList')->name('purchases.pending.list');
         Route::get('/approve/{id}', 'Backend\PurchaseController@approve')->name('purchases.approve');
         Route::get('/delete/{id}', 'Backend\PurchaseController@delete')->name('purchases.delete');
     });
@@ -102,4 +102,15 @@ Route::group(['middleware' => 'auth'], function () {
     // default controller
     Route::get('/get-category', 'Backend\DefaultController@getCategory')->name('get-category');
     Route::get('/get-product', 'Backend\DefaultController@getProduct')->name('get-product');
+    Route::get('/get-stock', 'Backend\DefaultController@getStock')->name('check-product-stock');
+
+    // route group for inovices management
+    Route::prefix('inovices')->group(function () {
+        Route::get('/view', 'Backend\InvoiceController@view')->name('inovices.view');
+        Route::get('/add', 'Backend\InvoiceController@add')->name('inovices.add');
+        Route::post('/store', 'Backend\InvoiceController@store')->name('inovices.store');
+        Route::get('/pending', 'Backend\InvoiceController@pendingList')->name('inovices.pending.list');
+        Route::get('/approve/{id}', 'Backend\InvoiceController@approve')->name('inovices.approve');
+        Route::get('/delete/{id}', 'Backend\InvoiceController@delete')->name('inovices.delete');
+    });
 });

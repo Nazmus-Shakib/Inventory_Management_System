@@ -93,5 +93,4 @@
   <!-- /.Left col -->
 </div>
 <!-- /.content-wrapper -->
-
 @endsection

@@ -40,17 +40,17 @@
                       <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="date">Date</label>
-                                <input type="text" id="date" name="date" class="form-control datepicker" placeholder="YYYY-MM-DD" readonly>
+                                <input type="text" id="date" name="date" class="form-control datepicker form-control-sm" placeholder="YYYY-MM-DD" readonly>
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label for="purchase_no">Purchase No</label>
-                                <input type="text" id="purchase_no" name="purchase_no" class="form-control">
+                                <input type="text" id="purchase_no" name="purchase_no" class="form-control form-control-sm">
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label for="supplier_id">Supplier Name</label>
-                                <select name="supplier_id" id="supplier_id" class="form-control">
+                                <select name="supplier_id" id="supplier_id" class="form-control select2">
                                     <option value="">Select Supplier</option>
                                     @foreach($suppliers as $supplier)
                                     <option value="{{$supplier->id}}">{{$supplier->name}}</option>
@@ -60,20 +60,20 @@
 
                             <div class="form-group col-md-4">
                                 <label for="category_id">Category</label>
-                                <select name="category_id" id="category_id" class="form-control">
+                                <select name="category_id" id="category_id" class="form-control select2">
                                     <option value="">Select Category</option>
                                 </select>
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label for="product_id">Product Name</label>
-                                <select name="product_id" id="product_id" class="form-control">
+                                <select name="product_id" id="product_id" class="form-control select2">
                                     <option value="">Select Product</option>
                                 </select>
                             </div>
 
                             <div class="form-group col-md-2" style="margin-top:32px">
-                                <a class="btn btn-danger addMoreEvent"><i class="fa fa-plus-circle"></i> Add More</a>
+                                <a class="btn btn-danger addMoreEvent btn-sm"><i class="fa fa-plus-circle"></i> Add More</a>
                             </div>
                       </div>
               </div><!-- /.card-body -->
@@ -94,7 +94,7 @@
                         </tr>
                       </thead>
                       <tbody id="addRow" class="addRow">
-                      
+
                       </tbody>
                       <tbody>
                         <tr>
@@ -108,7 +108,7 @@
                     </table>
                     <br>
                     <div class="form-group">
-                      <button type="submit" class="btn btn-success" id="storeButton">Purchase Store</button>
+                      <button type="submit" class="btn btn-success" id="storeButton">Save Purchase</button>
                     </div>
                   </form>
                 </div>
@@ -140,7 +140,7 @@ $(function () {
 
       unit_id: {
         required: true,
-      }, 
+      },
     },
 
     messages: {
@@ -163,7 +163,7 @@ $(function () {
 
 <script>
         $('.datepicker').datepicker({
-            uiLibrary: 'bootstrap4', 
+            uiLibrary: 'bootstrap4',
             format: 'yyyy-mm-dd'
         });
 </script>
@@ -215,7 +215,7 @@ $(function () {
     <tr class="delete_add_more_item" id="delete_add_more_item">
       <input type="hidden" name="date[]" value="@{{date}}">
       <input type="hidden" name="purchase_no[]" value="@{{purchase_no}}">
-      <input type="hidden" name="supplier_id[]" value="@{{supplier_id}}">      
+      <input type="hidden" name="supplier_id[]" value="@{{supplier_id}}">
       <td>
         <input type="hidden" name="category_id[]" value="@{{category_id}}">@{{category_name}}
       </td>
@@ -244,9 +244,9 @@ $(function () {
     $(document).on('click', '.addMoreEvent', function (){
       var date = $('#date').val();
       var purchase_no = $('#purchase_no').val();
-      var supplier_id = $('#supplier_id').val();     
+      var supplier_id = $('#supplier_id').val();
       var category_id = $('#category_id').val();
-      var category_name = $('#category_id').find('option:selected').text();      
+      var category_name = $('#category_id').find('option:selected').text();
       var product_id = $('#product_id').val();
       var product_name = $('#product_id').find('option:selected').text();
 
@@ -296,10 +296,10 @@ $(function () {
     });
 
     $(document).on('keyup click', '.unit_price, .buy_qty', function(){
-      var unit_price = $(this).closest("tr").find("input.unit_price").val();      
-      var qty = $(this).closest("tr").find("input.buy_qty").val();      
+      var unit_price = $(this).closest("tr").find("input.unit_price").val();
+      var qty = $(this).closest("tr").find("input.buy_qty").val();
       var total = unit_price * qty;
-      $(this).closest("tr").find("input.total_price").val(total); 
+      $(this).closest("tr").find("input.total_price").val(total);
       totalAmountPrice();
     });
 
