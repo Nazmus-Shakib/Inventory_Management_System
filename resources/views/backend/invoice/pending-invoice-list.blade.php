@@ -31,8 +31,8 @@
           <!-- Custom tabs (Charts with tabs)-->
           <div class="card">
             <div class="card-header">
-              <h3>Invoice List
-                <a class="btn btn-success float-right btn-sm" href="{{route('inovices.add')}}"><i class="fa fa-plus-circle"></i> Add Invoice</a>
+              <h3>Pending Invoice List
+                {{-- <a class="btn btn-success float-right btn-sm" href="{{route('inovices.add')}}"><i class="fa fa-plus-circle"></i> Add Invoice</a> --}}
               </h3>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -45,6 +45,8 @@
                     <th style="width: 10%">Date</th>
                     <th>Description</th>
                     <th>Total Amount</th>
+                    <th>Status</th>
+                    <th style="width: 10%">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -59,6 +61,19 @@
                     <td>{{ date('d-m-Y', strtotime($invoice->date)) }}</td>
                     <td>{{ $invoice->description }}</td>
                     <td>{{ $invoice['payment']['total_amount'] }}</td>
+                    <td>
+                      @if($invoice->status == '0')
+                      <span style="background-color: red; padding: 3px">Pending</span>
+                      @elseif($invoice->status == '1')
+                      <span style="background-color: lightgreen; padding: 1px">Approved</span>
+                      @endif
+                    </td>
+                    <td>
+                    @if($invoice->status == '0')
+                      <a title="Approve" class="btn btn-success btn-sm" href="{{route('inovices.approve', $invoice->id)}}"><i class="fa fa-check-circle"></i></a>
+                      <a title="Delete" id="delete" class="btn btn-danger btn-sm" href="{{route('inovices.delete', $invoice->id)}}"><i class="fa fa-trash"></i></a>
+                    @endif
+                    </td>
                   </tr>
                   @endforeach
                 </tbody>

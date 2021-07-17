@@ -45,7 +45,7 @@
 
                             <div class="form-group col-md-2">
                                 <label for="date">Date</label>
-                                <input type="text" id="date" name="date" class="form-control datepicker form-control-sm" placeholder="YYYY-MM-DD" readonly>
+                                <input type="text" id="date" name="date" class="form-control datepicker form-control-sm" value={{$date}} placeholder="YYYY-MM-DD" readonly>
                             </div>
 
                             <div class="form-group col-md-3">
@@ -77,7 +77,7 @@
               </div><!-- /.card-body -->
 
               <div class="card-body">
-                  <form method="post" action="{{route('purchases.store')}}" id="myForm">
+                  <form method="post" action="{{route('inovices.store')}}" id="myForm">
                     @csrf
                     <table class="table-sm table-bordered" width="100%">
                       <thead>
@@ -211,7 +211,7 @@
     });
 </script>
 
-<!-- Extra table HTML for Add More Option -->
+<!-- Extra table HTML for Add More Option using handlebars.js -->
 <script id="document-template" type="text/x-handlebars-template">
     <tr class="delete_add_more_item" id="delete_add_more_item">
       <input type="hidden" name="date" value="@{{date}}">
@@ -235,7 +235,7 @@
     </tr>
 </script>
 
-<!-- functions for extra table html content  -->
+<!-- functions for extra table html for using add option  -->
 <script>
   $(document).ready(function (){
     $(document).on('click', '.addMoreEvent', function (){
