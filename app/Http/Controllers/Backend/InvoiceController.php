@@ -16,6 +16,7 @@ use App\Model\PaymentDetail;
 use App\Model\Customer;
 use Auth;
 use DB;
+use PDF;
 
 class InvoiceController extends Controller
 {
@@ -134,7 +135,7 @@ class InvoiceController extends Controller
             $invoice_detail = InvoiceDetail::where('id', $key)->first();
             $product = Product::where('id', $invoice_detail->product_id)->first();
             if ($product->quantity < $request->selling_qty[$key]) {
-                return redirect()->back()->with('error', 'Sorry! You have Selected Maximum Products than Stock');
+                return redirect()->back()->with('error', 'Sorry! You have Selected More Products than Stock');
             }
         }
         $invoice = Invoice::find($id);
@@ -160,5 +161,36 @@ class InvoiceController extends Controller
         Payment::where('invoice_id', $invoice->id)->delete();
         PaymentDetail::where('invoice_id', $invoice->id)->delete();
         return redirect()->route('inovices.pending.list')->with('success', 'Invoices Deleted Successfully');
+    }
+
+    public function printInvoiceList()
+    {
+        $allData = Invoice::orderBy('date', 'desc')->orderBy('id', 'desc')->where('status', '1')->get();
+        return view('backend.invoice.pos-invoice-list', compact('allData'));
+    }
+
+    function printInvoice($id)
+    {
+        $data['invoice'] = Invoice::with(['invoice_details'])->find($id);
+        $pdf = PDF::loadView('backend.pdf.invoice-pdf', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('invoice.pdf');
+    }
+
+    public function dailyReport()
+    {
+        return view('backend.invoice.daily-invoice-report');
+    }
+
+    public function dailyReportPDF(Request $request)
+    {
+        $sdate = date('Y-m-d', strtotime($request->start_date));
+        $edate = date('Y-m-d', strtotime($request->end_date));
+        $data['allData'] = Invoice::whereBetween('date', [$sdate, $edate])->where('status', '1')->get();
+        $data['start_date'] = date('Y-m-d', strtotime($request->start_date));
+        $data['end_date'] = date('Y-m-d', strtotime($request->end_date));
+        $pdf = PDF::loadView('backend.pdf.daily-invoice-pdf', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('dailyReport.pdf');
     }
 }

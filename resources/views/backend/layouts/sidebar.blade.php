@@ -187,6 +187,36 @@
                   <p>Approve Invoice</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('print.invoice.list')}}" class="nav-link {{( $route=='print.invoice.list' ? 'active' : '' )}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Print Invoice</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('invoice.daily.report')}}" class="nav-link {{( $route=='invoice.daily.report' ? 'active' : '' )}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daily Invoice Report</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item {{( $prefix=='/stocks' ? 'menu-open' : '' )}}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Manage Stock
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('stocks.report')}}" class="nav-link {{( $route=='stocks.report' ? 'active' : '' )}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Stock Report</p>
+                </a>
+              </li>
             </ul>
           </li>
 

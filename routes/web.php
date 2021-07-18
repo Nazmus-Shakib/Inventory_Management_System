@@ -113,5 +113,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/approve/{id}', 'Backend\InvoiceController@approve')->name('inovices.approve');
         Route::get('/delete/{id}', 'Backend\InvoiceController@delete')->name('inovices.delete');
         Route::post('approve/store/{id}', 'Backend\InvoiceController@approvalStore')->name('approval.store');
+        Route::get('/print/list', 'Backend\InvoiceController@printInvoiceList')->name('print.invoice.list');
+        Route::get('/print/{id}', 'Backend\InvoiceController@printInvoice')->name('print.invoice');
+        Route::get('/daily/report', 'Backend\InvoiceController@dailyReport')->name('invoice.daily.report');
+        Route::get('/daily/report/pdf', 'Backend\InvoiceController@dailyReportPDF')->name('invoice.daily.report.pdf');
+    });
+
+    // route group for stocks management
+    Route::prefix('stocks')->group(function () {
+        Route::get('/report', 'Backend\StockController@stockReport')->name('stocks.report');
+        Route::get('/report/pdf', 'Backend\StockController@stockReportPDF')->name('stocks.report.pdf');
     });
 });
