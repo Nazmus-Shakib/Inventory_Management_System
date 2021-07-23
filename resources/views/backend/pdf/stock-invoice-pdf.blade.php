@@ -47,23 +47,36 @@
                             <th>Supplier Name</th>
                             <th>Category</th>
                             <th>Product Name</th>
-                            <th>Stock</th>
+                            <th>Bought Qty</th>
+                            <th>Sold Qty</th>
+                            <th>Current Stock</th>
                             <th>Unit</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($allData as $key => $product)
+                        @php
+                            $bought_qty = App\Model\Purchase::where('category_id', $product->category_id)->where('product_id', $product->id)->where('status', '1')->sum('buy_qty');
+
+                            $sold_qty = App\Model\InvoiceDetail::where('category_id', $product->category_id)->where('product_id', $product->id)->where('status', '1')->sum('selling_qty');
+                        @endphp
                         <tr>
                             <td>{{ $key + 1 }}.</td>
                             <td>{{ $product['supplier']['name'] }}</td>
                             <td>{{ $product['category']['name'] }}</td>
                             <td>{{ $product->name }}</td>
+                            <td>{{ $bought_qty }}</td>
+                            <td>{{ $sold_qty }}</td>
                             <td>{{ $product->quantity }}</td>
                             <td>{{ $product['unit']['name'] }}</td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+                @php
+                    $date = new DateTime('now', new DateTimeZone('Asia/Kuala_Lumpur'));
+                @endphp
+                <i>Printing Time : {{$date->format('F j, Y, g:i a')}}</i>
             </div>
         </div>
         <br>
