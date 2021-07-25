@@ -57,6 +57,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/edit/{id}', 'Backend\CustomerController@edit')->name('customers.edit');
         Route::post('/update/{id}', 'Backend\CustomerController@update')->name('customers.update');
         Route::get('/delete/{id}', 'Backend\CustomerController@delete')->name('customers.delete');
+        Route::get('/credit', 'Backend\CustomerController@creditCustomers')->name('customers.credit');
+        Route::get('/credit/pdf', 'Backend\CustomerController@creditCustomersPDF')->name('customers.credit.pdf');
+        Route::get('/invoice/edit/{invoice_id}', 'Backend\CustomerController@editInvoice')->name('customers.invoice.edit');
+        Route::post('/invoice/update/{invoice_id}', 'Backend\CustomerController@updateInvoice')->name('customers.invoice.update');
     });
 
     // route group for units management
@@ -97,6 +101,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/pending', 'Backend\PurchaseController@pendingList')->name('purchases.pending.list');
         Route::get('/approve/{id}', 'Backend\PurchaseController@approve')->name('purchases.approve');
         Route::get('/delete/{id}', 'Backend\PurchaseController@delete')->name('purchases.delete');
+        Route::get('/report', 'Backend\PurchaseController@purchaseReport')->name('purchases.report');
+        Route::get('/report/pdf', 'Backend\PurchaseController@purchaseReportPDF')->name('purchases.report.pdf');
     });
 
     // default controller

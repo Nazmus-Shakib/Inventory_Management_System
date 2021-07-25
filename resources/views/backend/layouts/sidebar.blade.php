@@ -85,6 +85,12 @@
                   <p>View Customers</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('customers.credit')}}" class="nav-link {{( $route=='customers.credit' ? 'active' : '' )}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Due Customers</p>
+                </a>
+              </li>
             </ul>
           </li>
 
@@ -161,6 +167,12 @@
                 <a href="{{ route('purchases.pending.list')}}" class="nav-link {{( $route=='purchases.pending.list' ? 'active' : '' )}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Approve Purchase</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('purchases.report')}}" class="nav-link {{( $route=='purchases.report' ? 'active' : '' )}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daily Purchase Report</p>
                 </a>
               </li>
             </ul>

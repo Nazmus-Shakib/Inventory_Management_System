@@ -11,6 +11,7 @@ use App\Model\Category;
 use App\Model\Purchase;
 use Auth;
 use DB;
+use PDF;
 
 class PurchaseController extends Controller
 {
@@ -75,5 +76,22 @@ class PurchaseController extends Controller
         $purchase = Purchase::find($id);
         $purchase->delete();
         return redirect()->route('purchases.view')->with('success', 'Purchases Deleted Successfully');
+    }
+
+    public function purchaseReport()
+    {
+        return view('backend.purchase.daily-purchase-report');
+    }
+
+    public function purchaseReportPDF(Request $request)
+    {
+        $sdate = date('Y-m-d', strtotime($request->start_date));
+        $edate = date('Y-m-d', strtotime($request->end_date));
+        $data['allData'] = Purchase::whereBetween('date', [$sdate, $edate])->where('status', '1')->get();
+        $data['start_date'] = date('Y-m-d', strtotime($request->start_date));
+        $data['end_date'] = date('Y-m-d', strtotime($request->end_date));
+        $pdf = PDF::loadView('backend.pdf.daily-purchase-pdf', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('dailyPurchaseReport.pdf');
     }
 }

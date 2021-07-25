@@ -193,6 +193,6 @@ class InvoiceController extends Controller
         $data['end_date'] = date('Y-m-d', strtotime($request->end_date));
         $pdf = PDF::loadView('backend.pdf.daily-invoice-pdf', $data);
         $pdf->SetProtection(['copy', 'print'], '', 'pass');
-        return $pdf->stream('dailyReport.pdf');
+        return $pdf->stream('dailyInvoiceReport.pdf');
     }
 }
