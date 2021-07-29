@@ -106,4 +106,48 @@ class CustomerController extends Controller
             return redirect()->route('customers.credit')->with('success', 'Invoice Updated Successfully');
         }
     }
+
+    public function invoiceDetailsPDF($invoice_id)
+    {
+        $data['payment'] = Payment::where('invoice_id', $invoice_id)->first();
+        $pdf = PDF::loadView('backend.pdf.invoice-details-pdf', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('invoiceDetailsReport.pdf');
+    }
+
+    public function paidCustomers()
+    {
+        $allData = Payment::where('paid_status', '!=', 'full_due')->get();
+        return view('backend.customer.customer-paid', compact('allData'));
+    }
+
+    public function paidCustomersPDF()
+    {
+        $data['allData'] = Payment::where('paid_status', '!=', 'full_due')->get();
+        $pdf = PDF::loadView('backend.pdf.paid-customer-pdf', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('paidCustomerReport.pdf');
+    }
+
+    public function customerWiseReport()
+    {
+        $customers = Customer::all();
+        return view('backend.customer.customer-wise-report', compact('customers'));
+    }
+
+    public function customerWiseDue(Request $request)
+    {
+        $data['allData'] = Payment::where('customer_id', $request->customer_id)->whereIn('paid_status', ['full_due', 'partial_paid'])->get();
+        $pdf = PDF::loadView('backend.pdf.customer-wise-due-pdf', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('dueCustomerWiseReport.pdf');
+    }
+
+    public function customerWisePaid(Request $request)
+    {
+        $data['allData'] = Payment::where('customer_id', $request->customer_id)->where('paid_status', '!=', 'full_due')->get();
+        $pdf = PDF::loadView('backend.pdf.customer-wise-paid-pdf', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('paidCustomerWiseReport.pdf');
+    }
 }

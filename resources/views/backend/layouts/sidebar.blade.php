@@ -91,6 +91,18 @@
                   <p>Due Customers</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('customers.paid')}}" class="nav-link {{( $route=='customers.paid' ? 'active' : '' )}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Paid Customers</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('customers.wise.report')}}" class="nav-link {{( $route=='customers.wise.report' ? 'active' : '' )}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Customer Wise Report</p>
+                </a>
+              </li>
             </ul>
           </li>
 

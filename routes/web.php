@@ -61,6 +61,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/credit/pdf', 'Backend\CustomerController@creditCustomersPDF')->name('customers.credit.pdf');
         Route::get('/invoice/edit/{invoice_id}', 'Backend\CustomerController@editInvoice')->name('customers.invoice.edit');
         Route::post('/invoice/update/{invoice_id}', 'Backend\CustomerController@updateInvoice')->name('customers.invoice.update');
+        Route::get('/invoice/details/pdf/{invoice_id}', 'Backend\CustomerController@invoiceDetailsPDF')->name('invoice.details.pdf');
+        Route::get('/paid', 'Backend\CustomerController@paidCustomers')->name('customers.paid');
+        Route::get('/paid/pdf', 'Backend\CustomerController@paidCustomersPDF')->name('customers.paid.pdf');
+        Route::get('/wise/report', 'Backend\CustomerController@customerWiseReport')->name('customers.wise.report');
+        Route::get('/wise/due/report', 'Backend\CustomerController@customerWiseDue')->name('customers.wise.due.report');
+        Route::get('/wise/paid/report', 'Backend\CustomerController@customerWisePaid')->name('customers.wise.paid.report');
     });
 
     // route group for units management
